@@ -1,6 +1,7 @@
 #include <Novice.h>
+#include "GameManager.h"
 
-const char kWindowTitle[] = "GC1C_04_イマムラ_エリカ_タイトル";
+const char kWindowTitle[] = "GC2B_03_イマムラ_エリカ";
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -11,6 +12,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// キー入力結果を受け取る箱
 	char keys[256] = {0};
 	char preKeys[256] = {0};
+
+	// インスタンスの生成
+	GameManager* gameManager = new GameManager();
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0) {
@@ -24,6 +28,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		///
 		/// ↓更新処理ここから
 		///
+
+		// キー変数の受け渡し
+		gameManager->Run(keys, preKeys);
 
 		///
 		/// ↑更新処理ここまで
@@ -48,5 +55,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// ライブラリの終了
 	Novice::Finalize();
+	delete gameManager; // 解放
 	return 0;
 }
